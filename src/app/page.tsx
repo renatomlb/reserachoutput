@@ -27,8 +27,8 @@ export default function Home() {
           Projects
         </h2>
         <p className="mt-3 max-w-2xl text-foreground/65">
-          Four projects, 2022 to 2026 — from a completed exoskeleton study through to
-          a proposal awaiting funding. The line traces how sure we are of each one.
+          From 2022 to 2026 — from a completed exoskeleton usability study through to
+          a proposal awaiting funding touching prodromal biomarker for early detection of neurodegenerative disease. The line traces how sure we are of each one.
         </p>
         <div className="mt-12">
           <ProjectTimeline projects={projects} />
