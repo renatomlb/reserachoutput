@@ -1,0 +1,339 @@
+/*
+  Structural CSS for ProjectTimeline. A deliberate exception to the site's
+  Tailwind-utility convention: the alternating-side layout (nth-of-type,
+  per-breakpoint translateX nudges, container queries) isn't expressible as
+  readable utility classes. Colors still come from the tokens in globals.css
+  — nothing here is a new hex value. See AGENTS.md.
+*/
+
+.tlRoot {
+  container-type: inline-size;
+  container-name: timeline;
+  position: relative;
+}
+
+.tlSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tlSeg {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* The line encodes certainty: solid through published work, breaking up as
+   it moves through review and into an unrun proposal. */
+.tlSegPublished {
+  stroke-dasharray: none;
+}
+
+.tlSegInReview {
+  stroke-dasharray: 11 7;
+}
+
+.tlSegProposal {
+  stroke-dasharray: 2 8;
+  stroke-width: 2.5;
+}
+
+.tlRow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  column-gap: 14px;
+  padding: 9px 0;
+  align-items: start;
+}
+
+.tlRow:first-child {
+  padding-top: 0;
+}
+
+.tlRow:last-child {
+  padding-bottom: 0;
+}
+
+.tlSpine {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 17px;
+}
+
+.tlNode {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--background);
+  border: 2.5px solid var(--gold);
+  flex: none;
+}
+
+.tlNodePublished {
+  background: var(--gold);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 18%, transparent);
+}
+
+.tlNodeInReview {
+  background: linear-gradient(to right, var(--gold) 50%, var(--background) 50%);
+}
+
+.tlNodeProposal {
+  border-style: dashed;
+  border-color: var(--gold-dim);
+}
+
+/* The curve runs directly under each node, so the year sits on the line by
+   design — an opaque chip knocks the stroke out behind it, the way a label
+   breaks a line on a subway map, rather than moving the label off the line. */
+.tlYear {
+  font-size: 12px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--foreground) 50%, transparent);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  writing-mode: vertical-rl;
+  margin-top: 6px;
+  background: var(--background);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* In one column the alternation that separates rows on desktop is gone, so
+   each project needs its own edge. The rail stays outside the card — cards
+   hang off the wire rather than boxing it in. */
+.tlCard {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  gap: 11px;
+  align-content: start;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.tlStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--foreground) 65%, transparent);
+  justify-self: start;
+}
+
+.tlStatus::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.tlStatusPublished::before {
+  background: var(--success);
+}
+
+.tlStatusInReview::before {
+  background: var(--caution);
+}
+
+.tlStatusProposal::before {
+  background: var(--gold);
+}
+
+.tlAcronym {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin: 0;
+  color: var(--foreground);
+}
+
+.tlLede {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--foreground) 80%, transparent);
+  max-width: 46ch;
+}
+
+.tlFacts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+  color: color-mix(in srgb, var(--foreground) 50%, transparent);
+}
+
+.tlFacts li + li::before {
+  content: "\00B7";
+  margin-right: 8px;
+  color: color-mix(in srgb, var(--foreground) 40%, transparent);
+}
+
+.tlImpact {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--gold) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  border-radius: 999px;
+  padding: 6px 12px 6px 10px;
+  justify-self: start;
+}
+
+.tlImpact::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  flex: none;
+}
+
+.tlFigure {
+  margin: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.tlImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tlLink {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-dim);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  padding-bottom: 1px;
+  justify-self: start;
+  width: fit-content;
+}
+
+.tlLink:hover {
+  color: var(--foreground);
+  border-bottom-color: var(--foreground);
+}
+
+.tlLink:focus-visible {
+  outline: 2px solid var(--gold-dim);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.tlLinkStatic {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--foreground) 50%, transparent);
+  justify-self: start;
+}
+
+/* Desktop: a three-column stage — content, spine channel, content. Rows
+   alternate sides; the curve threads down the empty middle so it never
+   crosses text. nth-of-type, not nth-child: callers may wrap rows in
+   fragments, and this stays correct either way. */
+@container timeline (min-width: 820px) {
+  .tlRow {
+    grid-template-columns: minmax(0, 1fr) 150px minmax(0, 1fr);
+    column-gap: 0;
+    padding: 26px 0;
+  }
+
+  .tlSpine {
+    grid-column: 2;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    padding-top: 0;
+  }
+
+  .tlYear {
+    writing-mode: horizontal-tb;
+    margin-top: 0;
+  }
+
+  .tlCard {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .tlRow:nth-of-type(odd) .tlCard {
+    grid-column: 1;
+    text-align: right;
+  }
+
+  .tlRow:nth-of-type(odd) .tlStatus,
+  .tlRow:nth-of-type(odd) .tlImpact,
+  .tlRow:nth-of-type(odd) .tlLink,
+  .tlRow:nth-of-type(odd) .tlLinkStatic {
+    justify-self: end;
+  }
+
+  .tlRow:nth-of-type(odd) .tlLede,
+  .tlRow:nth-of-type(odd) .tlFigure {
+    margin-left: auto;
+  }
+
+  .tlRow:nth-of-type(odd) .tlFacts {
+    justify-content: flex-end;
+  }
+
+  .tlRow:nth-of-type(even) .tlCard {
+    grid-column: 3;
+  }
+
+  /* Nudge each node toward its own card so the spine actually swings.
+     Proportional to the narrower spine track (was 80px against a 220px
+     track; kept the same ~36% ratio here). */
+  .tlRow:nth-of-type(odd) .tlSpine {
+    transform: translateX(-56px);
+  }
+
+  .tlRow:nth-of-type(even) .tlSpine {
+    transform: translateX(56px);
+  }
+
+  .tlFigure {
+    max-width: 414px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tlSeg {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+  Attracting Talent palette — see Sources/color-palette.md
+  Brand hexes: bg #F8F8F6 · navy #0b3044 · gold #c9a84c · gold-light #e8c97a · gold-dim #b8973b
+  OKLCH values below are exact conversions of those hexes.
+
+  Light theme only. There is no .dark block by design — see AGENTS.md.
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-new-transport);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-new-transport);
+
+  /* Brand */
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dim: var(--gold-dim);
+  --color-gold-foreground: var(--gold-foreground);
+
+  /* Status */
+  --color-success: var(--success);
+  --color-caution: var(--caution);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-urgency: var(--urgency);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Raw brand colors */
+  --gold: oklch(0.7432 0.1171 89.51); /* #c9a84c */
+  --gold-light: oklch(0.8454 0.1044 88.71); /* #e8c97a */
+  --gold-dim: oklch(0.6894 0.1159 89.03); /* #b8973b — gold hover/active */
+  --gold-foreground: oklch(0.2941 0.0546 236.87); /* navy on gold */
+
+  /* Status */
+  --success: oklch(0.7227 0.192 149.58); /* #22c55e */
+  --caution: oklch(0.7952 0.1617 86.05); /* #eab308 */
+  --warning: oklch(0.7049 0.1867 47.6); /* #f97316 */
+  --error: oklch(0.6368 0.2078 25.33); /* #ef4444 */
+  --urgency: oklch(0.6521 0.1322 81.57); /* #b8860b */
+
+  /* Surfaces & text */
+  --background: oklch(0.9786 0.0026 106.45); /* #F8F8F6 */
+  --foreground: oklch(0.2941 0.0546 236.87); /* #0b3044 */
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+
+  --primary: var(--foreground); /* navy buttons */
+  --primary-foreground: var(--background);
+  --secondary: oklch(0.2941 0.0546 236.87 / 8%);
+  --secondary-foreground: var(--foreground);
+
+  --muted: oklch(0.2941 0.0546 236.87 / 8%);
+  --muted-foreground: oklch(0.2941 0.0546 236.87 / 65%);
+
+  /* shadcn's `accent` is the hover/active SURFACE token (menus, list rows),
+     not the brand accent. Keep it a subtle gold wash; use `gold` for brand. */
+  --accent: oklch(0.7432 0.1171 89.51 / 15%);
+  --accent-foreground: var(--foreground);
+
+  --destructive: var(--error);
+  --border: oklch(0.2941 0.0546 236.87 / 20%);
+  --input: oklch(0.2941 0.0546 236.87 / 20%);
+  --ring: var(--gold);
+
+  --chart-1: var(--gold);
+  --chart-2: var(--foreground);
+  --chart-3: var(--gold-dim);
+  --chart-4: oklch(0.2941 0.0546 236.87 / 50%);
+  --chart-5: var(--gold-light);
+
+  --radius: 0.625rem;
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--foreground);
+  --sidebar-primary-foreground: var(--background);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--gold);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
