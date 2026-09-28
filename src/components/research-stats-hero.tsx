@@ -110,7 +110,7 @@ export function ResearchStatsHero({ stats }: { stats: ResearchStats }) {
             <p className="mt-5 text-lg leading-relaxed text-pretty md:text-[1.1875rem]">
               <strong className="font-semibold">research publications in total</strong>
               <span className="text-foreground/65">
-                , across the programmes of Physiotherapy, Sport &amp; Exercise Science, Sport
+                , across Physiotherapy, Sport &amp; Exercise Science, Sport
                 Management, Nutrition, Education, and R&amp;D.
               </span>
             </p>
